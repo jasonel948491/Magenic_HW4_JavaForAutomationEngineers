@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * TODO FOR HOMEWORK - SongDatabaseTest.java
- *      [ ] Write the 'testAddDeleteSong' test method
- *      [ ] Write the 'testAddGetDeletePlaylist' test method
+ *      [X] Write the 'testAddDeleteSong' test method
+ *      [X] Write the 'testAddGetDeletePlaylist' test method
  */
 public class SongDatabaseTest {
     /**
@@ -19,6 +19,20 @@ public class SongDatabaseTest {
     public void testAddDeleteSong() {
         // TODO FOR HOMEWORK: Write a test for both adding and deleting songs from a song database
         SongDatabase database = new SongDatabase();
+        Song songOne = new Song("SongOne", "1");
+        Song songTwo = new Song("SongTwo", "2");
+
+        database.addSong(songOne);
+        Assert.assertTrue(database.getSongArchive().contains(songOne));
+
+        database.addSong(songTwo);
+        Assert.assertTrue(database.getSongArchive().contains(songTwo));
+
+        database.deleteSong(songOne);
+        Assert.assertFalse(database.getSongArchive().contains(songOne));
+
+        database.deleteSong(songTwo);
+        Assert.assertFalse(database.getSongArchive().contains(songTwo));
     }
 
     /**
@@ -29,6 +43,20 @@ public class SongDatabaseTest {
     public void testAddGetDeletePlaylist() {
         // TODO FOR HOMEWORK: Write a test for both adding and deleting playlists from a song database
         SongDatabase database = new SongDatabase();
+        String playlistOne = "PlaylistOne";
+        String playlistTwo = "PlaylistTwo";
+
+        database.createPlaylist(playlistOne);
+        Assert.assertTrue(database.getPlaylists().containsKey(playlistOne));
+
+        database.createPlaylist(playlistTwo);
+        Assert.assertTrue(database.getPlaylists().containsKey(playlistTwo));
+
+        database.deletePlaylist(playlistOne);
+        Assert.assertFalse(database.getPlaylists().containsKey(playlistOne));
+
+        database.deletePlaylist(playlistTwo);
+        Assert.assertFalse(database.getPlaylists().containsKey(playlistTwo));
     }
 
     /**

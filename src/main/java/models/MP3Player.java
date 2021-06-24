@@ -267,6 +267,7 @@ public class MP3Player {
             // Gets the first song in the array, and remove it from the queue
             Song songToPlay = songQueue.get(0);
             songQueue.remove(0);
+            songQueue.add(songToPlay); // Jason Eligio: added for Looping Song in a playlist
 
             // Plays the song and waits for user input on whether the next song in the playlist should be played
             playNextSong = playSong(songToPlay);
@@ -304,6 +305,7 @@ public class MP3Player {
 
         // Playlist name
         String seededPlaylist = "Rolling Stones - Greatest of All Time";
+        String stdPlaylist = "PL";
 
         // Originally Added Songs
         mp3.songDatabase.addSong(new Song("Like a Rolling Stone", "Bob Dylan"));
@@ -311,6 +313,7 @@ public class MP3Player {
 
         // Creates the playlist
         mp3.songDatabase.createPlaylist(seededPlaylist);
+        mp3.songDatabase.createPlaylist(stdPlaylist);
 
         // Adds song to the playlist, some of which are brand new to the MP3 Player
         mp3.songDatabase.addSongToPlaylist(new Song("Like a Rolling Stone", "Bob Dylan"), seededPlaylist);
@@ -323,6 +326,9 @@ public class MP3Player {
         mp3.songDatabase.addSongToPlaylist(new Song("Hey Jude", "The Beatles"), seededPlaylist);
         mp3.songDatabase.addSongToPlaylist(new Song("Smells Like Teen Spirit", "Nirvana"), seededPlaylist);
         mp3.songDatabase.addSongToPlaylist(new Song("What'd I Say", "Ray Charles"), seededPlaylist);
+
+        mp3.songDatabase.addSongToPlaylist(new Song("S1", "A1"), stdPlaylist);
+        mp3.songDatabase.addSongToPlaylist(new Song("S2", "A2"), stdPlaylist);
 
         // Starts the application by opening the main menu
         mp3.mainMenu();

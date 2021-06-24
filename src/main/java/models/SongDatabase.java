@@ -4,12 +4,12 @@ import java.util.*;
 
 /**
  * TODO FOR HOMEWORK - SongDatabase.java
- *      [ ] Complete the 'addSong' method
- *      [ ] Throw an IllegalArgumentException when a playlist of the given name already exists in the 'createPlaylist' method
- *      [ ] Complete the 'getPlaylist' method
- *      [ ] Complete the 'addSongToPlaylist' method
- *      [ ] Complete the 'findSongByName' method
- *      [ ] Complete the 'findSongByArtist' method
+ *      [X] Complete the 'addSong' method
+ *      [X] Throw an IllegalArgumentException when a playlist of the given name already exists in the 'createPlaylist' method
+ *      [X] Complete the 'getPlaylist' method
+ *      [X] Complete the 'addSongToPlaylist' method
+ *      [X] Complete the 'findSongByName' method
+ *      [X] Complete the 'findSongByArtist' method
  */
 public class SongDatabase {
     /**
@@ -71,6 +71,7 @@ public class SongDatabase {
      */
     public void addSong(Song newSong) {
         // TODO FOR HOMEWORK: Add the given song to the song archive
+        this.songArchive.add(newSong);
     }
 
     /**
@@ -118,6 +119,7 @@ public class SongDatabase {
         // Checks if the playlists already has a key for the given playlist name
         if (playlists.containsKey(playlistName)) {
             // TODO FOR HOMEWORK: Throw the IllegalArgumentException with a custom message
+            throw new IllegalArgumentException("Playlist already exist!");
         }
 
         // Puts the playlist name into the playlists and maps it to a new empty list of songs
@@ -132,7 +134,9 @@ public class SongDatabase {
      */
     public List<Song> getPlaylist(String playlistName) {
         // TODO FOR HOMEWORK: Add the conditional for returning the playlist
-
+        if ( playlists.containsKey(playlistName) ){
+            return playlists.get(playlistName);
+        }
         // Returns null if no songs are found for the given playlist name
         return null;
     }
@@ -160,6 +164,14 @@ public class SongDatabase {
      */
     public void addSongToPlaylist(Song newSong, String playlistName) {
         // TODO FOR HOMEWORK: Add the given song to the playlist of the given name
+        if ( !playlists.containsKey(playlistName) ) {
+            this.createPlaylist(playlistName);
+        }
+        if ( !songArchive.contains(newSong) ){
+            this.addSong(newSong);
+        }
+
+        playlists.get(playlistName).add(newSong);
     }
 
     /**
@@ -199,7 +211,15 @@ public class SongDatabase {
      */
     public List<Song> findSongByName(String songName) {
         // TODO FOR HOMEWORK: Remove the line below, and return a list of songs that match the given song name
-        return null;
+        List<Song> songList =  new ArrayList<Song>();
+        Iterator<Song> it = songArchive.iterator();
+        while (it.hasNext()) {
+            Song song = it.next();
+            if (song.getName().equals(songName)) {
+                songList.add(song);
+            }
+        }
+        return songList;
     }
 
     /**
@@ -210,7 +230,15 @@ public class SongDatabase {
      */
     public List<Song> findSongsByArtist(String artist) {
         // TODO FOR HOMEWORK: Remove the line below, and return a list of songs that match the given artist
-        return null;
+        List<Song> songList =  new ArrayList<Song>();
+        Iterator<Song> it = songArchive.iterator();
+        while (it.hasNext()) {
+            Song song = it.next();
+            if (song.getArtist().equals(artist)) {
+                songList.add(song);
+            }
+        }
+        return songList;
     }
 
     /**
